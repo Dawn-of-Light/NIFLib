@@ -1,0 +1,7 @@
+C:\Users\RedFish\Desktop\Nouveau dossier\NIFLib\trunk\NIFLib_ExampleFrameWork\bin\NIFLib_ExampleFrameWork.exe
+C:\Users\RedFish\Desktop\Nouveau dossier\NIFLib\trunk\NIFLib_ExampleFrameWork\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\RedFish\Desktop\Nouveau dossier\NIFLib\trunk\NIFLib_ExampleFrameWork\obj\x86\Debug\NIF.View.resources
+C:\Users\RedFish\Desktop\Nouveau dossier\NIFLib\trunk\NIFLib_ExampleFrameWork\obj\x86\Debug\NIFLib_ExampleFrameWork.FileSelect.resources
+C:\Users\RedFish\Desktop\Nouveau dossier\NIFLib\trunk\NIFLib_ExampleFrameWork\obj\x86\Debug\NIFLib_ExampleFrameWork.Form1.resources
+C:\Users\RedFish\Desktop\Nouveau dossier\NIFLib\trunk\NIFLib_ExampleFrameWork\obj\x86\Debug\NIFLib_ExampleFrameWork.csproj.GenerateResource.Cache
+C:\Users\RedFish\Desktop\Nouveau dossier\NIFLib\trunk\NIFLib_ExampleFrameWork\obj\x86\Debug\NIFLib_ExampleFrameWork.exe

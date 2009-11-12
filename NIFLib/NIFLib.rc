@@ -1,0 +1,204 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Deutsch (Deutschland) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
+#ifdef _WIN32
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_TEXTURE_NOT_FOUND   BITMAP                  "texture_not_found.bmp"
+IDB_NODE_ICONS          BITMAP                  "icons.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DEBUG_WIN DIALOGEX 0, 0, 348, 319
+STYLE DS_SETFONT | DS_SETFOREGROUND | DS_FIXEDSYS | WS_MINIMIZEBOX | 
+    WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Object Tree"
+MENU IDR_MENU1
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_OBJ_TREE,"SysTreeView32",TVS_HASBUTTONS | 
+                    TVS_HASLINES | TVS_LINESATROOT | TVS_DISABLEDRAGDROP | 
+                    WS_BORDER | WS_TABSTOP,0,0,347,319
+END
+
+IDD_PROGRESS DIALOGEX 0, 0, 220, 26
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Progress"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_PROGRESS1,"msctls_progress32",WS_BORDER,0,0,219,
+                    14
+    CTEXT           "",IDC_TEXT,0,14,219,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_DEBUG_WIN, DIALOG
+    BEGIN
+        RIGHTMARGIN, 347
+    END
+
+    IDD_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 213
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 19
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040704b0"
+        BEGIN
+            VALUE "Comments", "This is special for DAoC players and Tool-developer."
+            VALUE "CompanyName", "M. Jurkait"
+            VALUE "FileDescription", "Renders NIF-Files"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "NIFLib"
+            VALUE "LegalCopyright", "Copyright © 2004"
+            VALUE "LegalTrademarks", "NetImmerse"
+            VALUE "OriginalFilename", "NIFLib.dll"
+            VALUE "ProductName", " NIFLib Dynamic Link Library (DLL)"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x407, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU 
+BEGIN
+    POPUP "Show"
+    BEGIN
+        MENUITEM "All",                         ID_SHOW_ALL
+        MENUITEM "Only Textures",               ID_SHOW_ONLYTEXTURES, GRAYED
+        MENUITEM "Only Visible",                ID_SHOW_ONLYVISIBLE
+    END
+    POPUP "Selection view"
+    BEGIN
+        MENUITEM "dont show",                   ID_SELECTIONS_DONTSHOW
+        MENUITEM SEPARATOR
+        MENUITEM "show bounding",               ID_SELECTIONS_SHOWBOUNDING
+        MENUITEM "show selected",               ID_SELECTIONS_SHOWSELECTED
+        MENUITEM "recursive",                   ID_SELECTIONS_RECURSIVE
+    END
+    POPUP "Selection"
+    BEGIN
+        MENUITEM "Hide/Show",                   ID_SELECTION_HIDE
+        POPUP "Flip"
+        BEGIN
+            MENUITEM "X",                           ID_FLIP_X
+            MENUITEM "Y",                           ID_FLIP_Y
+            MENUITEM "Z",                           ID_FLIP_Z
+        END
+        POPUP "Rotate"
+        BEGIN
+            MENUITEM "CW",                          ID_ROTATE_CW
+            MENUITEM "CCW",                         ID_ROTATE_CCW
+        END
+    END
+END
+
+#endif    // Deutsch (Deutschland) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

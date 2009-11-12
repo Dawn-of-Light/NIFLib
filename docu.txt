@@ -1,0 +1,245 @@
+NIFLib.dll
+==========
+by M.Jurkait 2004
+
+
+What's that?
+============
+A dynamic library to load and render DAoC(tm) Files.
+It's able to load NIF/NPK files and/or read the object/model lists.
+(zones are on the to-do-list)
+
+
+What do I need to use it?
+=========================
+A compiler and some programming knowledge.
+There is also an example included which show's the basic functions.
+(C/C++/C# are availabe, all other's needs just a new header)
+ 
+
+What can I do with it?
+======================
+Viewing models.
+Maybe "export" (and far away "import") will be added.
+
+
+Debugging
+=========
+There are two versions:
+- niflib.dll 
+    release version without user interface
+    
+- niflib_dbg.dll 
+    debug version. It generates a log-file and show's the object-tree.
+
+
+
+How to use
+==========
+a) Init
+  Before you can use any functions you must call:
+
+  			NIF::Create(HWND wnd);				// C/C++
+			NIFAPI.Create(IntPtr windowHandle);	// C#
+
+  Next you have to set the directory where the DAoC data can be found.
+  
+  			NIF.DAOCAPI.SetRootDirectory("c:\camelot\"); // C#
+  			
+  (If needed you can change the directory later again)
+  
+  For OpenGL you also need the Window-Device-Context (DC).
+  So while initialisation it's a good time to store the context in a variable for later use.
+  
+  			IntPtr.m_hdc = GL.GetDC(mywindow.Handle);		// C#
+  
+  			
+b) Destroy
+	On shotdown you first have to make sure all object were released.
+	
+		if (m_current_object != IntPtr.Zero)
+				NIFAPI.ReleaseObject(m_current_object);
+
+	After that release all NIFLib resource by:
+	
+			NIFAPI.Release();
+
+	And last but not least release the DC (if you stored it)
+		
+			GL.ReleaseDC(this.Handle,m_hdc);
+
+
+c) Rendering
+	Since you usally wanted to see the objects you need a 'render' function.
+	The NIFLib itself just draws the object. It doesn't do any buffer clear or swap.
+	Why? Because so you can do many things with that object or render more the one object.
+	
+	But first an example.
+	
+	Example:
+
+		// C#
+		protected override void OnPaintBackground(PaintEventArgs pevent)
+		{
+			// nothing todo 'cause we will draw the whole thing
+		}
+		
+		protected override void OnPaint(PaintEventArgs e)
+		{
+			// Clear The Screen And The Depth Buffer
+			GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+
+			// set up the camera view (loads the matrix)
+			camera.setView();
+
+			// add a object rotation
+			mf_rotation += 0.5f;	GL.glRotatef( mf_rotation, 0.0f, 0.0f,1.0f ); 
+
+			// render the object
+			NIFAPI.Render(m_current_object);
+
+			// display it
+			GL.wglSwapBuffers(m_hdc);
+		}
+
+	In detail:
+		OnPaintBackground
+			-> overloaded because we don't need to clear the background
+		
+		GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+			-> this will erase the background buffer (and the depth buffer)
+	
+		camera.setView();
+			-> more on that later
+			-> You can replace it with "GL.glMatrixMode(GL.GL_MODELVIEW); GL.LoadIdentiyMatrix();"
+			-> if you won't use that class.
+			
+		mf_rotation += 0.5f;	GL.glRotatef( mf_rotation, 0.0f, 0.0f,1.0f ); 
+			-> a absolutly simple rotate animation
+
+		NIFAPI.Render(m_current_object);
+			-> That's what we are looking for.
+			-> This call will render the "m_current_object" object
+			
+		GL.wglSwapBuffers(m_hdc);
+			-> will make the background buffer visible
+
+
+
+	A easy practice to make sure this is called often you could setup a timer like.
+	
+		// C#
+		private void timer1_Tick(object sender, System.EventArgs e)
+		{
+			// recall OnPaint
+			Invalidate(false);
+		}
+
+
+
+d) CCamera
+	For easier movemt through the 3D-World there is a CCamera class.
+	Simple create a camera:
+	
+		CCamera camera = new CCamera();
+		
+	Set the position (and/or rotate) manualy:
+	
+		camera.moveGlobal(0,0,100);
+
+		
+	or use the 'Target' function:
+	
+		camera.targetObject(m_current_object, CCamera.e_viewPosition.Front);
+
+
+	The last function call will make sure that you realy see the object.
+
+
+	When 'Rendering' you simple call
+	
+		camera.setView();
+		
+	to setup the right matrix.
+	
+	
+	If you don't use the camera you have to :
+		GL.glMatrixMode(GL.GL_MODELVIEW);
+		GL.LoadIdentiyMatrix();
+		GL.Trans...... or load a matrix by yourself.
+	before you render a object.
+	
+
+
+e) Loading NIFs
+	Once the basic's are ready we can proceed to the loading.
+	A low-api function is "CreateObject".
+	
+	This will load a NIF/NPK file. Since DAoC transforms them depending on other tables
+	it's possible that these models are looking terible.
+	
+		// load new object
+		m_current_object = NIFAPI.CreateObject("c:\camelot\nifs\","bag.nif");
+
+	(Make sure you released the object already stored in "m_current_object")
+	
+	A NULL (IntPtr.Zero) return value indicates an error.
+	At the momement no more details on error's are available.
+	
+	
+	
+d) Loading by ID's
+	DAoC use tables to modify the contents of NIF files.
+	It's usually looks better if you let NIFLib read all the tables.
+	
+	(Following description is for "Figures". But item and zones are identical)
+	
+	If you already know which ID's are available you can skip that part.
+	
+	1) Obtaining ID-list
+		By using:
+			Int32	DAoC_GetMonsterIDs(Int32 [] buffer, Int32 size);
+			
+		you can obtain a list with all valid ID's.
+		If one of the parameter is 0 this function only returns how much ID's are there.
+		So you'll typical call it this way
+		
+			int nof = DAoC_GetMonsterIDs(NULL,0);
+			int* buffer = new int[nof];
+			nof = DAoC_GetMonsterIDs(buffer,nof); // storing the return value isn't realy needed but okay
+	
+	2) Getting the Name
+		If you want more information of an object you can call
+			bool		GetMonsterName(Int32 ID, StringBuilder buffer, Int32 size);
+		
+		this will give you the name of a monster.
+		(size is the max size of the stringbuffer, a size of 128 char is more then enough)
+		
+	3) Loading
+	
+		m_current_object = LoadMonster(Int32 ID);
+		
+		A NULL (IntPtr.Zero) return value indicates an error.
+		At the momement no more details on error's are available.
+		
+		What else should I say? :)
+		
+		
+
+
+
+Are there any problems I need to know?
+======================================
+Since all information was done be regeeniering the NIF format, there is still
+a bunch of information missing.
+Most NIF/NPK files are load able. Some are just invissible 'cause they only contains effects or materials.
+
+Mainly old format's (version 3.1 or lower) have problems.
+But nearly all DAoC 1.69 files should be loadable (except 20 of all 3000+)
+
+	
+		
+
+
+	
+

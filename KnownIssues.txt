@@ -1,0 +1,14 @@
+Note: Add to this list as you find things... remove from me if you fix them...
+
+Some dungeon parts are rotated incorrectly.
+
+TOA terrain texturing is not supported, as it is different and hasn't been figured out yet.
+
+Some new frontiers terrain only uses TOA terrain.
+
+Transparent object/model rendering isn't included.
+
+ParticleSystemController chunk isn’t working for NIFs (you'll notice that only in debug-version). 
+
+Some models (primarily humanoid) render withoutout textures in some places (cloaks, etc.).  Also, some mobs render without skins.
+

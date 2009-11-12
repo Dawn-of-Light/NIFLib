@@ -1,0 +1,25 @@
+ NIFLib
+ ------
+   source of niflib.dll
+   
+   Generates: /bin/niflib.dll  (or /bin/niflib_dbg.dll)
+ 	
+   A short file description text is in there, but most documentation is done inside the code.
+   Use doxygen to generate a rough overview.
+   
+ 
+ ZLib
+ -----
+   http://www.gzip.org/zlib/
+   
+   Must be linked with NIFLib.
+   MPK files are compressed so zlib is needed to read that files.
+     
+ 
+ NIFLib_ExampleFrameWork
+ -----------------------
+ 	a example framework.
+ 	That's just my c# test framework.
+ 	Since I don't use it by myself the handling can be improved alot.
+ 	You'll have to copy the niflib.dll into it by hand.
+ 	(if you want debug informations use the niflib_dbg.dll and rename it to niflib.dll)

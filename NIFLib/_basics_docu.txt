@@ -1,0 +1,50 @@
+NIFLib.dll
+----------
+ by M.Jurkait 2004
+
+ 
+a) base
+ filenames starting with "NIFLib" implements the dll interface.
+ 
+ At first there where only niflib.cpp. Later on I started to split these things in differnt files.
+
+b) Chunks
+    "CNode" and all "CNi..." files.
+    
+    CNode is the base class of all CNi-Classes.
+    A CNi.. class represent a chunk of a nif-file.
+    
+    After loading these nodes are organized in a tree structure.
+    One main-node is CNiNode (transform matrix).
+    The meshdata itself are in CNiTriShapeData or CNiTriStripData.
+    All others are effects, animation, texturing,....
+
+    for further documentations see: CNode.h
+
+  
+c) Helpers
+   
+    c1) File-access
+        CDirList    - reading directorys and mpk-files
+        CNiStream   - stream for nif-files
+        CReaderINI  - reading and parsing '.ini' files 
+        CReaderCSV  - reading and parsing '.csv' files
+        
+    c2) Grafics
+        CVector         - Vector class
+        CMatrix         - Matrix class
+        CTextureManager - singleton class, managing textures
+        
+    c3) others
+        Tarray.h    - an array-template, just to be independend :)
+        CChilds     - load and convert indiezes to pointers. Only used by chunk-classes
+        bitmaps     - texture-not-found and icon's for the debug-window
+
+        
+d) Debug
+  "CDebug*" files and "debug_log" are mainly for debugging.
+  These are the object-tree, loadingbar (is used in release also) and standard logging functions.
+    
+
+
+
